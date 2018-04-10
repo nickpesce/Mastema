@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour {
     public float moveSpeed = 5F;
     public float rotSpeed = 10f;
     public float jumpSpeed = 3f;
+    float angle;
 
     // Use this for initialization
     void Start () {
@@ -16,27 +17,44 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
+
         float moveHorizonal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
+        Vector3 mousePos = Input.mousePosition;
 
-        Vector3 movementV = new Vector3(0.0f, 0.0f, moveVertical);
-        Vector3 movementH = new Vector3(moveHorizonal, 0.0f, 0.0f);
+
+        //To make mousePos relative to center of screen
+        mousePos.x -= Screen.width / 2;
+        mousePos.y -= Screen.height / 2;
+
+        //To make mousePos relative to transform
+        mousePos += transform.position;
+        angle = Vector3.Angle(mousePos, Vector3.right);
+
+
+        transform.rotation = Quaternion.Euler(angle, 0, 0);
+        
+
+        Vector3 movement = new Vector3(0.0f, 0.0f, -moveVertical);
+
         Vector3 up = new Vector3(0.0f, 1f, 0.0f);
-
-        //rb.AddForce(movement * speed);
-        transform.Translate(movementH * moveSpeed * Time.deltaTime);
-        transform.Translate(movementV * moveSpeed * Time.deltaTime);
+        
+        transform.Translate(movement * moveSpeed * Time.deltaTime);
+ 
 
         if (Input.GetKeyDown("space"))
         {
-            //Debug.Log("space");
 
             if (transform.position.y < 5)
             {
                 rb.AddForce(up * jumpSpeed, ForceMode.Impulse);
             }
         }
+
+
+
+
     }
 }
