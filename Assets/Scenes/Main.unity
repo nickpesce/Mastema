@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 275110819}
   - component: {fileID: 275110823}
   - component: {fileID: 275110824}
+  - component: {fileID: 275110825}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Untagged
@@ -193,7 +194,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 275110818}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 45.791096, y: 44.155983, z: 33.146072}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
@@ -228,8 +229,26 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 64
+  m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &275110825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 275110818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccbccea1531766941945656573b07c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axes: 1
+  sensitivityX: 15
+  sensitivityY: 15
+  minimumX: -360
+  maximumX: 360
+  minimumY: -60
+  maximumY: 60
 --- !u!1 &509614468
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,6 +529,7 @@ GameObject:
   - component: {fileID: 739672481}
   - component: {fileID: 739672480}
   - component: {fileID: 739672484}
+  - component: {fileID: 739672485}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -573,20 +593,20 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 739672479}
-  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.49095398, z: 0.20904616}
   m_Children: []
   m_Father: {fileID: 275110822}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &739672484
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 739672479}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa88b94b64809d948a78b97e2b5ae7ea, type: 3}
   m_Name: 
@@ -594,8 +614,28 @@ MonoBehaviour:
   target: {fileID: 275110822}
   offset: {x: 0, y: 0, z: 0}
   pitch: 0
+  rotY: 0
   maxY: 1
   minY: -1
+  lockPos: 0
+--- !u!114 &739672485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 739672479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccbccea1531766941945656573b07c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axes: 2
+  sensitivityX: 15
+  sensitivityY: 15
+  minimumX: -360
+  maximumX: 360
+  minimumY: -60
+  maximumY: 60
 --- !u!1 &802520159
 GameObject:
   m_ObjectHideFlags: 0
