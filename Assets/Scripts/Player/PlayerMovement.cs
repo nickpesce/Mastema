@@ -26,12 +26,13 @@ public class PlayerMovement : MonoBehaviour {
         float moveHorizonal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
-        rotX += Input.GetAxis("Mouse X");
-        rotY -= Input.GetAxis("Mouse Y");
-    
-        transform.eulerAngles = new Vector3(0, rotX, 0);
+        //rotX += Input.GetAxis("Mouse X");
+        //rotY -= Input.GetAxis("Mouse Y");
 
-        Vector3 movementV = new Vector3(0.0f, 0.0f, -moveVertical);
+        //transform.eulerAngles = new Vector3(0, rotX, 0);
+
+
+        Vector3 movementV = new Vector3(0.0f, 0.0f, moveVertical);
         Vector3 movementH = new Vector3(-moveHorizonal, 0.0f, 0.0f);
         Vector3 up = new Vector3(0.0f, 1f, 0.0f);
 
@@ -41,7 +42,7 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKeyDown("space"))
         {
 
-            if (transform.position.y < 5)
+            if (transform.position.y < 5 && transform.position.y >= 1)
             {
                 rb.AddForce(up * jumpSpeed, ForceMode.Impulse);
             }
