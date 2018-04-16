@@ -33,14 +33,16 @@ public class FloorController : MonoBehaviour
         }
     }
 
-    float lastDestroy = 0;
+    //float lastDestroy = 0;
     void Update()
     {
+        /*
         if(Time.time - lastDestroy > 1)
         {
             destroyTile(transform.position + new Vector3(((Random.value * height) - (height / 2f)) * tileSize, 0, ((Random.value * width) - (width / 2f)) * tileSize));
             lastDestroy = Time.time;
         }
+        */
     }
 
     void FixedUpdate()
