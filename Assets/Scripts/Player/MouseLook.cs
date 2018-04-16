@@ -24,7 +24,7 @@ public class MouseLook : MonoBehaviour
 {
 
 
-    public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
+    public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2, BodyHead = 3 }
     public RotationAxes axes = RotationAxes.MouseXAndY;
     public float sensitivityX = 15F;
     public float sensitivityY = 15F;
@@ -35,8 +35,10 @@ public class MouseLook : MonoBehaviour
     float rotationX = 0F;
     float rotationY = 0F;
     Quaternion originalRotation;
+    Quaternion originalHeadRotation;
+    Camera head;
 
-    Rigidbody rigidbody;
+    //Rigidbody rigidbody;
 
     void Update()
     {
@@ -58,21 +60,33 @@ public class MouseLook : MonoBehaviour
             Quaternion xQuaternion = Quaternion.AngleAxis(rotationX, Vector3.up);
             transform.localRotation = originalRotation * xQuaternion;
         }
-        else
+        else if (axes == RotationAxes.MouseY)
         {
             rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
             rotationY = ClampAngle(rotationY, minimumY, maximumY);
             Quaternion yQuaternion = Quaternion.AngleAxis(-rotationY, Vector3.right);
             transform.localRotation = originalRotation * yQuaternion;
+        } else
+        {
+            rotationX += Input.GetAxis("Mouse X") * sensitivityX;
+            rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+            rotationX = ClampAngle(rotationX, minimumX, maximumX);
+            rotationY = ClampAngle(rotationY, minimumY, maximumY);
+            Quaternion xQuaternion = Quaternion.AngleAxis(rotationX, Vector3.up);
+            Quaternion yQuaternion = Quaternion.AngleAxis(-rotationY, Vector3.right);
+            transform.localRotation = originalRotation * xQuaternion;
+            head.transform.localRotation = originalHeadRotation * yQuaternion;
         }
     }
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        //rigidbody = GetComponent<Rigidbody>();
         // Make the rigid body not change rotation
         //if (rigidbody)
         //    rigidbody.freezeRotation = true;
         originalRotation = transform.localRotation;
+        head = GetComponentInChildren<Camera>();
+        originalHeadRotation = head.transform.localRotation;
     }
     public static float ClampAngle(float angle, float min, float max)
     {
