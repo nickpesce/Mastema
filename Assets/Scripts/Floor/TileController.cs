@@ -8,20 +8,35 @@ public class TileController : MonoBehaviour {
 	void Start () {
         damage = 0;
 	}
-	
-	void Update () {
-		
-	}
 
-    private void OnCollisionEnter(Collision collision)
+    public void DoDamage(float amount)
     {
-        FloorDestroyer floorDestroyer;
-        if((floorDestroyer = collision.gameObject.GetComponent<FloorDestroyer>())!= null) {
-            damage += floorDestroyer.damagePercent;
-            if(damage >= 1)
-            {
-                this.gameObject.SetActive(false);
-            }
+        damage += amount;
+        this.gameObject.GetComponent<Renderer>().material.color = new Color(1-damage, 1-damage, 1-damage);
+        if (damage >= 1)
+        {
+            this.gameObject.SetActive(false);
         }
     }
+
+    private void CheckFloorDestroyer(GameObject gameObject)
+    {
+        FloorDestroyer floorDestroyer;
+        if ((floorDestroyer = gameObject.GetComponent<FloorDestroyer>()) != null)
+        {
+            DoDamage(floorDestroyer.calculateDamage(this.gameObject));
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        CheckFloorDestroyer(collision.gameObject);
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        CheckFloorDestroyer(collider.gameObject);
+    }
+
+
 }
