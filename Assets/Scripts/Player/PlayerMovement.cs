@@ -53,12 +53,24 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(new Vector3(0, -gravity * rb.mass, 0));
 
         grounded = false;
+
+        
     }
 
-    void OnCollisionStay(Collision hit)
+
+    
+    void OnCollisionStay(Collision collision)
     {
-        grounded = true;
-        ground = hit.gameObject;
+        if (collision.contacts.Length > 0)
+        {
+            ContactPoint contact = collision.contacts[0];
+            if (Vector3.Dot(contact.normal, Vector3.up) > 0.5)
+            {
+                //if the collision is from the bottom (the player is on the ground)
+                grounded = true;
+                ground = collision.gameObject;
+            }
+        }
     }
 
 
