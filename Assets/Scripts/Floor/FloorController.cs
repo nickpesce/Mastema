@@ -14,7 +14,6 @@ public class FloorController : MonoBehaviour
     void Start()
     {
         tiles = new GameObject[height][];
-        tilePrefab.transform.localScale = new Vector3(tileSize, tileSize, tileSize);
         bottomLeftCorner = transform.position - new Vector3(height/2f*tileSize, 0, width/2f*tileSize);
         generateFloor();
     }
@@ -28,6 +27,7 @@ public class FloorController : MonoBehaviour
             {
                 Vector3 offset = new Vector3(r * tileSize, 0,c * tileSize);
                 GameObject tile = Instantiate(tilePrefab, bottomLeftCorner + offset, Quaternion.identity);
+                tile.transform.localScale *= tileSize;
                 tiles[r][c] = tile;
             }
         }
