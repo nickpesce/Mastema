@@ -19,7 +19,7 @@ public class TileController : MonoBehaviour {
         }
     }
 
-    private void CheckFloorDestroyer(GameObject gameObject)
+    public void CheckFloorDestroyer(GameObject gameObject)
     {
         FloorDestroyer floorDestroyer;
         if ((floorDestroyer = gameObject.GetComponent<FloorDestroyer>()) != null)
