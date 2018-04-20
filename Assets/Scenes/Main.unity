@@ -263,8 +263,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c26d42db1c3d94f90732a1a9445d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointer: {fileID: 2024422748}
   meleeDamage: 0.2
+  pointer: {fileID: 2024422748}
+  aoe: {fileID: 1259611286300800, guid: f6d3875cb16253540ab7aa294b389884, type: 2}
+  aoeRadius: 10
+  aoeCD: 3
 --- !u!1 &509614468
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,12 @@ public class PlayerAction : MonoBehaviour {
     public float meleeDamage = 0.2f;
     public GameObject pointer;
 
+    public GameObject aoe;
+    public float aoeRadius = 20f;
+
+    public float aoeCD = 1f;
+    private float nextAOE;
+
     // Use this for initialization
     void Start () {
         head = GetComponentInChildren<Camera>();
@@ -29,6 +35,20 @@ public class PlayerAction : MonoBehaviour {
                 if (gameObject.CompareTag("Floor"))
                 {
                     gameObject.GetComponent<TileController>().DoDamage(meleeDamage);
+                }
+            }
+            //Right click
+            if (Input.GetMouseButtonDown(1) && Time.time > nextAOE)
+            {
+                GameObject gameObject = hit.collider.gameObject;
+                if (gameObject.CompareTag("Floor"))
+                {
+                    Vector3 pos = gameObject.transform.position;
+                    GameObject bomb = Instantiate(aoe, new Vector3(pos.x, pos.y + gameObject.transform.localScale.y, pos.z), Quaternion.identity);
+                    bomb.transform.localScale = bomb.transform.localScale * aoeRadius;
+                    
+                    Destroy(bomb, .01f);
+                    nextAOE = Time.time + aoeCD;
                 }
             }
         } else
