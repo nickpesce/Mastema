@@ -12,7 +12,7 @@ public class PlayerAction : MonoBehaviour {
     public GameObject aoe;
     public float aoeRadius = 20f;
 
-    public float aoeCD = 1f;
+    public float aoeCD = 5f;
     private float nextAOE;
 
     // Use this for initialization
@@ -46,8 +46,6 @@ public class PlayerAction : MonoBehaviour {
                     Vector3 pos = gameObject.transform.position;
                     GameObject bomb = Instantiate(aoe, new Vector3(pos.x, pos.y + gameObject.transform.localScale.y, pos.z), Quaternion.identity);
                     bomb.transform.localScale = bomb.transform.localScale * aoeRadius;
-                    
-                    Destroy(bomb, .01f);
                     nextAOE = Time.time + aoeCD;
                 }
             }

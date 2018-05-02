@@ -10,9 +10,13 @@ public class FloorDestroyer : MonoBehaviour {
     //TODO different function options.
     public bool distanceBased = false;
     private float damage;
-	void Start () {
+    private Boolean checkedCollision;
+
+    void Start()
+    {
         damage = damagePercent / 100;
-	}
+        checkedCollision = false;
+    }
 	
     public float calculateDamage(GameObject tile)
     {
@@ -25,7 +29,10 @@ public class FloorDestroyer : MonoBehaviour {
         return d;
     }
 
-	void Update () {
-		
-	}
+	void FixedUpdate () {
+        if(checkedCollision)
+            Destroy(this.gameObject);
+        checkedCollision = true;
+    }
+
 }
