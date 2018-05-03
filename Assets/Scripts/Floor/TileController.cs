@@ -1,24 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class TileController : MonoBehaviour {
+public class TileController : NetworkBehaviour {
 
-    private float damage;
+    float damage;
+
 	void Start () {
         damage = 0;
 	}
 
+    //Gets called even if destroyed (damage >= 1)
+    [ClientRpc]
+    void RpcOnDamage(float newDamage)
+    {
+        Debug.Log("Damage updated to " + newDamage);
+        damage = newDamage;
+        this.gameObject.GetComponent<Renderer>().material.color = new Color(1 - newDamage, 1 - newDamage, 1 - newDamage);
+    }
+
+    [ClientRpc]
+    void RpcOnDestroy()
+    {
+        this.gameObject.SetActive(false);
+    }
+
+    [ClientCallback]
+    private void Update()
+    {
+    }
+
+    [Server]
     public void DoDamage(float amount)
     {
         damage += amount;
-        this.gameObject.GetComponent<Renderer>().material.color = new Color(1-damage, 1-damage, 1-damage);
+        RpcOnDamage(damage);
         if (damage >= 1)
         {
-            this.gameObject.SetActive(false);
+            RpcOnDestroy();
         }
     }
 
+    [Server]
     public void CheckFloorDestroyer(GameObject gameObject)
     {
         FloorDestroyer floorDestroyer;
@@ -28,11 +52,13 @@ public class TileController : MonoBehaviour {
         }
     }
 
+    [ServerCallback]
     void OnCollisionEnter(Collision collision)
     {
         CheckFloorDestroyer(collision.gameObject);
     }
 
+    [ServerCallback]
     private void OnTriggerEnter(Collider collider)
     {
         CheckFloorDestroyer(collider.gameObject);

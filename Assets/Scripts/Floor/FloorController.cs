@@ -1,23 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class FloorController : MonoBehaviour
+public class FloorController : NetworkBehaviour
 {
     public int width, height;
     public float tileSize;
     public GameObject tilePrefab;
+    public GameObject spawnPointPrefab;
     private GameObject[][] tiles;
     // The floor object is the center of the floor, but the tiles matrix is relative to the bottom left corner.
     private Vector3 bottomLeftCorner;
 
-    void Start()
+    public override void OnStartServer()
     {
+        tileSize = 4;
         tiles = new GameObject[height][];
         bottomLeftCorner = transform.position - new Vector3(height/2f*tileSize, 0, width/2f*tileSize);
         generateFloor();
     }
 
+    [Server]
     void generateFloor()
     {
         for (int r = 0; r < height; r++)
@@ -25,10 +29,18 @@ public class FloorController : MonoBehaviour
             tiles[r] = new GameObject[width];
             for (int c = 0; c < width; c++)
             {
-                Vector3 offset = new Vector3(r * tileSize, 0,c * tileSize);
+                Vector3 offset = new Vector3(r * tileSize, 0, c * tileSize);
                 GameObject tile = Instantiate(tilePrefab, bottomLeftCorner + offset, Quaternion.identity);
-                tile.transform.localScale *= tileSize;
+                //Scale is broken woth network spawn
+                //tile.transform.localScale *= tileSize;
+                NetworkServer.Spawn(tile);
                 tiles[r][c] = tile;
+                //Spawnpoints around edges
+                if(r == 0 || c == 0 || r == height-1 || c == width-1)
+                {
+                    //Only instatiated locally (on server)
+                    GameObject spawnPoint = Instantiate(spawnPointPrefab, bottomLeftCorner + offset, Quaternion.identity);
+                }
             }
         }
     }
@@ -61,14 +73,10 @@ public class FloorController : MonoBehaviour
         return new int[] { (int) loc.x, (int) loc.z };
     }
 
+    [Server]
     void destroyTile(Vector3 location)
     {
         int[] coords = positionToTileCoord(location);
         tiles[coords[0]][coords[1]].SetActive(false);
-    }
-
-    void destroyTiles(Vector3 location, float radius)
-    {
-
     }
 }

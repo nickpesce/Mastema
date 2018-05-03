@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Collider))]
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
 
     public float speed = 10.0f;
@@ -16,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     GameObject ground;
     private Rigidbody rb;
 
+    
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -25,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!isLocalPlayer) return;
         if (grounded)
         {
             // Lower friction, lower self-propelled acceleration.
@@ -61,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
     
     void OnCollisionStay(Collision collision)
     {
+        if (!isLocalPlayer) return;
         if (collision.contacts.Length > 0)
         {
             ContactPoint contact = collision.contacts[0];
