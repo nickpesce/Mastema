@@ -23,39 +23,51 @@ public class PlayerAction : NetworkBehaviour {
         head = GetComponentInChildren<Camera>(true).gameObject;
 	}
 	
-    [Command]
-    void CmdHitFloor()
+    void HitFloor()
     {
         Ray ray = new Ray(head.transform.position, head.transform.forward);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 10))
-        { 
-            GameObject gameObject = hit.collider.gameObject;
-            if (gameObject.CompareTag("Floor"))
+        {
+            GameObject hitObject = hit.collider.gameObject;
+            if (hitObject.CompareTag("Floor"))
             {
-                gameObject.GetComponent<TileController>().DoDamage(meleeDamage);
+                CmdHitFloor(hitObject);
             }
         }
     }
 
     [Command]
-    void CmdAoeAttack()
+    void CmdHitFloor(GameObject tile)
+    { 
+        //TODO make sure distance is < ~10
+        tile.GetComponent<TileController>().DoDamage(meleeDamage);
+    }
+
+    void AoeAttack()
     {
-        Debug.Log("Command aoe");
         if (Time.time < nextAOE) return;
         Ray ray = new Ray(head.transform.position, head.transform.forward);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 10))
         {
-            GameObject gameObject = hit.collider.gameObject;
-            if (gameObject.CompareTag("Floor"))
+            GameObject hitObject = hit.collider.gameObject;
+            if (hitObject.CompareTag("Floor"))
             {
-                Vector3 pos = gameObject.transform.position;
-                GameObject bomb = Instantiate(aoe, new Vector3(pos.x, pos.y + gameObject.transform.localScale.y, pos.z), Quaternion.identity);
-                bomb.transform.localScale = bomb.transform.localScale * aoeRadius;
-                nextAOE = Time.time + aoeCD;
+                CmdAoeAttack(hitObject);
             }
         }
+    }
+
+    [Command]
+    void CmdAoeAttack(GameObject tile)
+    {
+        if (Time.time < nextAOE) return;
+        Vector3 pos = gameObject.transform.position;
+        //GameObject bomb = Instantiate(aoe, new Vector3(pos.x, pos.y + gameObject.transform.localScale.y, pos.z), Quaternion.identity);
+        GameObject bomb = Instantiate(aoe, tile.transform.position, Quaternion.identity);
+        bomb.transform.localScale = bomb.transform.localScale * aoeRadius;
+        nextAOE = Time.time + aoeCD;
     }
 
     [ClientCallback]
@@ -63,11 +75,11 @@ public class PlayerAction : NetworkBehaviour {
     {
         if (Input.GetMouseButtonDown(0))
         {
-            CmdHitFloor();
+            HitFloor();
         }
         if (Input.GetMouseButtonDown(1))
         {
-            CmdAoeAttack();
+            AoeAttack();
         }
         Ray ray = new Ray(head.transform.position, head.transform.forward);
         RaycastHit hit;

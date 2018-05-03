@@ -5,25 +5,30 @@ using UnityEngine.Networking;
 
 public class TileController : NetworkBehaviour {
 
+    [SyncVar(hook = "OnDamage")]
     float damage;
 
 	void Start () {
         damage = 0;
 	}
 
-    //Gets called even if destroyed (damage >= 1)
-    [ClientRpc]
-    void RpcOnDamage(float newDamage)
+    /// <summary>
+    /// When the damage is changed on the tile
+    /// Gets called even if destroyed(damage >= 1)
+    /// </summary>
+    [Client]
+    void OnDamage(float newDamage)
     {
-        Debug.Log("Damage updated to " + newDamage);
         damage = newDamage;
         this.gameObject.GetComponent<Renderer>().material.color = new Color(1 - newDamage, 1 - newDamage, 1 - newDamage);
     }
 
+    /// <summary>
+    /// When this tile is destroyed on client. Trigger animation
+    /// </summary>
     [ClientRpc]
     void RpcOnDestroy()
     {
-        this.gameObject.SetActive(false);
     }
 
     [ClientCallback]
@@ -35,9 +40,9 @@ public class TileController : NetworkBehaviour {
     public void DoDamage(float amount)
     {
         damage += amount;
-        RpcOnDamage(damage);
         if (damage >= 1)
         {
+            Network.Destroy(this.gameObject);
             RpcOnDestroy();
         }
     }

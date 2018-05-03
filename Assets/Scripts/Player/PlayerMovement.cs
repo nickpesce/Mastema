@@ -56,8 +56,6 @@ public class PlayerMovement : NetworkBehaviour
         rb.AddForce(new Vector3(0, -gravity * rb.mass, 0));
 
         grounded = false;
-
-        
     }
 
 
