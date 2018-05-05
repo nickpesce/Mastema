@@ -122,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 509614472}
   - component: {fileID: 509614475}
+  - component: {fileID: 509614470}
   - component: {fileID: 509614469}
   m_Layer: 0
   m_Name: Floor
@@ -162,6 +163,20 @@ MonoBehaviour:
     i15: 0
   m_ServerOnly: 1
   m_LocalPlayerAuthority: 0
+--- !u!114 &509614470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 509614468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94d52f8fbec084c46a2840c59f2cbeb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnChancePerUpdate: 0.01
+  items:
+  - {fileID: 114380443004848062, guid: 8993465bae8814f4a90de7fc857f8a88, type: 2}
 --- !u!4 &509614472
 Transform:
   m_ObjectHideFlags: 0
@@ -252,6 +267,7 @@ MonoBehaviour:
   m_OnlineScene: 
   m_SpawnPrefabs:
   - {fileID: 1888128899509588, guid: e4494dc33b254cc4684a01a7fb427735, type: 2}
+  - {fileID: 1416538030241466, guid: 8993465bae8814f4a90de7fc857f8a88, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:

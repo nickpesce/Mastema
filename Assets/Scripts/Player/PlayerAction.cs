@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
+[RequireComponent(typeof(PlayerComponents))]
+[RequireComponent(typeof(Inventory))]
 public class PlayerAction : NetworkBehaviour {
 
-    GameObject head;
+    private PlayerComponents playerComponents;
     public float meleeDamage = 0.2f;
     public GameObject pointer;
 
@@ -16,16 +18,19 @@ public class PlayerAction : NetworkBehaviour {
     public float aoeCD = 5f;
     private float nextAOE;
 
+    private Inventory inventory;
+
     //On server, script is not started, but it is initialized for commands
     //Start() will not work
     void Awake() {
         //The gameobject with a camera component (even if its deactivated)
-        head = GetComponentInChildren<Camera>(true).gameObject;
+        playerComponents = GetComponent<PlayerComponents>();
+        inventory = GetComponent<Inventory>();
 	}
 	
     void HitFloor()
     {
-        Ray ray = new Ray(head.transform.position, head.transform.forward);
+        Ray ray = new Ray(playerComponents.GetHead().transform.position, playerComponents.GetHead().transform.forward);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 10))
         {
@@ -44,6 +49,7 @@ public class PlayerAction : NetworkBehaviour {
         tile.GetComponent<TileController>().DoDamage(meleeDamage);
     }
 
+    /*
     void AoeAttack()
     {
         if (Time.time < nextAOE) return;
@@ -59,6 +65,7 @@ public class PlayerAction : NetworkBehaviour {
         }
     }
 
+    
     [Command]
     void CmdAoeAttack(GameObject tile)
     {
@@ -68,6 +75,17 @@ public class PlayerAction : NetworkBehaviour {
         GameObject bomb = Instantiate(aoe, tile.transform.position, Quaternion.identity);
         bomb.transform.localScale = bomb.transform.localScale * aoeRadius;
         nextAOE = Time.time + aoeCD;
+    }
+    */
+
+    [Command]
+    void CmdUseItem()
+    {
+        int held = inventory.GetCurrentItem();
+        if(held != -1)
+        {
+            Item.UseItemFromInventory(held, this.gameObject);
+        }
     }
 
     [ClientCallback]
@@ -79,9 +97,10 @@ public class PlayerAction : NetworkBehaviour {
         }
         if (Input.GetMouseButtonDown(1))
         {
-            AoeAttack();
+            //AoeAttack();
+            CmdUseItem();
         }
-        Ray ray = new Ray(head.transform.position, head.transform.forward);
+        Ray ray = new Ray(playerComponents.GetHead().transform.position, playerComponents.GetHead().transform.forward);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 10))
         {

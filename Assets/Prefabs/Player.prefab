@@ -93,8 +93,10 @@ GameObject:
   - component: {fileID: 54859659263436936}
   - component: {fileID: 114621433333939814}
   - component: {fileID: 114817018324577234}
+  - component: {fileID: 114252285634226988}
   - component: {fileID: 114332505672179574}
   - component: {fileID: 114433107602402198}
+  - component: {fileID: 114648286489371008}
   - component: {fileID: 114307514023604580}
   - component: {fileID: 114868385325805686}
   - component: {fileID: 114831495106247720}
@@ -268,6 +270,17 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114252285634226988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1731752054245642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b714db12508efb44382ccbd5f79cc3c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114290958502712036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -306,6 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6d02ccbfb1de2c47b6ad9f3e11bed24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leniency: 0.1
 --- !u!114 &114332505672179574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -391,6 +405,18 @@ MonoBehaviour:
     i15: 242
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114648286489371008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1731752054245642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec49ee157024c734a983f295b33f0cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 5
 --- !u!114 &114783958187557174
 MonoBehaviour:
   m_ObjectHideFlags: 1

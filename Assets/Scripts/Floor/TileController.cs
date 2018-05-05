@@ -23,12 +23,10 @@ public class TileController : NetworkBehaviour {
         this.gameObject.GetComponent<Renderer>().material.color = new Color(1 - newDamage, 1 - newDamage, 1 - newDamage);
     }
 
-    /// <summary>
-    /// When this tile is destroyed on client. Trigger animation
-    /// </summary>
-    [ClientRpc]
-    void RpcOnDestroy()
+    //Right before it is destroyed. Do animation
+    private void OnDestroy()
     {
+        
     }
 
     [ClientCallback]
@@ -42,8 +40,7 @@ public class TileController : NetworkBehaviour {
         damage += amount;
         if (damage >= 1)
         {
-            Network.Destroy(this.gameObject);
-            RpcOnDestroy();
+            NetworkServer.Destroy(this.gameObject);
         }
     }
 

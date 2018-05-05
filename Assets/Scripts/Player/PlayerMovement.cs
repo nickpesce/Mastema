@@ -28,7 +28,7 @@ public class PlayerMovement : NetworkBehaviour
     void FixedUpdate()
     {
         if (!isLocalPlayer) return;
-        if (grounded)
+        if (grounded && ground != null)
         {
             // Lower friction, lower self-propelled acceleration.
             float maxVelocityChangeWithFriction = maxVelocityChange * ground.GetComponent<Collider>().material.dynamicFriction;

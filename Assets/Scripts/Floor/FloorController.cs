@@ -39,32 +39,17 @@ public class FloorController : NetworkBehaviour
                 if(r == 0 || c == 0 || r == height-1 || c == width-1)
                 {
                     //Only instatiated locally (on server)
-                    GameObject spawnPoint = Instantiate(spawnPointPrefab, bottomLeftCorner + offset, Quaternion.identity);
+                    Instantiate(spawnPointPrefab, bottomLeftCorner + offset, Quaternion.identity);
                 }
             }
         }
     }
 
-    //float lastDestroy = 0;
-    void Update()
-    {
-        /*
-        if(Time.time - lastDestroy > 1)
-        {
-            destroyTile(transform.position + new Vector3(((Random.value * height) - (height / 2f)) * tileSize, 0, ((Random.value * width) - (width / 2f)) * tileSize));
-            lastDestroy = Time.time;
-        }
-        */
-    }
-
-    void FixedUpdate()
-    {
-    }
 
     // Position is in world coordinates. Coord is in tile matrix.
     // (0, 0) is smallest (x, z)
     // If out of bounds, throws error
-    private int[] positionToTileCoord(Vector3 position)
+    public int[] PositionToTileCoord(Vector3 position)
     {
         Vector3 loc = ((position - bottomLeftCorner) / tileSize);
         if(loc.x >= height || loc.z >= width) {
@@ -73,10 +58,27 @@ public class FloorController : NetworkBehaviour
         return new int[] { (int) loc.x, (int) loc.z };
     }
 
+    public Vector3 TileCoordToPosition(int x, int y)
+    {
+        if(x < 0 || y < 0 || x >= width || y >= height)
+        {
+            throw new System.Exception("Tile coordinates out of bounds");
+        }
+        return bottomLeftCorner + new Vector3(x*tileSize, 0, y*tileSize);
+    }
+
+    /// <returns>A random position on the floor, not too close to edges</returns>
+    public Vector3 GetRandomPosition()
+    {
+        float edgeDistance = .5f;
+        return bottomLeftCorner + new Vector3(Random.Range(edgeDistance, width*tileSize - edgeDistance), 0, 
+            Random.Range(edgeDistance, height * tileSize - edgeDistance));
+    }
+
     [Server]
     void destroyTile(Vector3 location)
     {
-        int[] coords = positionToTileCoord(location);
+        int[] coords = PositionToTileCoord(location);
         tiles[coords[0]][coords[1]].SetActive(false);
     }
 }
