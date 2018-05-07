@@ -70,6 +70,7 @@ public class Grenade : Item {
     {
         if (thrown)
         {
+            thrown = false;
             GameObject bomb = Instantiate(aoe, this.transform.position, Quaternion.identity);
             bomb.transform.localScale = bomb.transform.localScale * aoeRadius;
             NetworkServer.Destroy(this.gameObject);

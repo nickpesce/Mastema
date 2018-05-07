@@ -18,7 +18,7 @@ public class FloorDestroyer : MonoBehaviour {
         checkedCollision = false;
     }
 	
-    public float calculateDamage(GameObject tile)
+    public float CalculateDamage(GameObject tile)
     {
         float d = damage;
         if(distanceBased)
@@ -29,7 +29,7 @@ public class FloorDestroyer : MonoBehaviour {
         return d;
     }
 
-	void FixedUpdate () {
+    void LateUpdate () {
         if(checkedCollision)
             Destroy(this.gameObject);
         checkedCollision = true;

@@ -50,7 +50,7 @@ public class TileController : NetworkBehaviour {
         FloorDestroyer floorDestroyer;
         if ((floorDestroyer = gameObject.GetComponent<FloorDestroyer>()) != null)
         {
-            DoDamage(floorDestroyer.calculateDamage(this.gameObject));
+            DoDamage(floorDestroyer.CalculateDamage(this.gameObject));
         }
     }
 
@@ -58,6 +58,7 @@ public class TileController : NetworkBehaviour {
     void OnCollisionEnter(Collision collision)
     {
         CheckFloorDestroyer(collision.gameObject);
+
     }
 
     [ServerCallback]
@@ -65,6 +66,5 @@ public class TileController : NetworkBehaviour {
     {
         CheckFloorDestroyer(collider.gameObject);
     }
-
 
 }

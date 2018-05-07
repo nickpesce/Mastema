@@ -15,10 +15,10 @@ public class CrossBomb : Item
     }
 
     [Server]
-    public override void UseItem()
+    public override void UseItem(Vector3 position, Vector3 direction)
     {
-        base.UseItem();
-        ThrowBomb();
+        base.UseItem(position, direction);
+        ThrowBomb(position, direction);
     }
 
     void Update()
@@ -27,15 +27,22 @@ public class CrossBomb : Item
     }
 
     [Server]
-    private void ThrowBomb()
+    private void ThrowBomb(Vector3 position, Vector3 direction)
     {
-        PlayerComponents player = user.GetComponent<PlayerComponents>();
-        this.transform.position = player.GetHead().transform.position;
+        this.transform.position = position;
         Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
         rb.isKinematic = false;
-        rb.AddForce(player.GetHead().transform.forward * 5000);
+        rb.velocity = direction * 50;
         SpawnItem();
+        RpcMakeNotKinematic();
         thrown = true;
+    }
+
+    [ClientRpc]
+    private void RpcMakeNotKinematic()
+    {
+        Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
+        rb.isKinematic = false;
     }
 
     [ServerCallback]
@@ -63,8 +70,8 @@ public class CrossBomb : Item
     {
         if (thrown)
         {
+            thrown = false;
             GameObject bomb = Instantiate(cross, new Vector3(this.transform.position.x, .5f, this.transform.position.z), Quaternion.identity);
-
             NetworkServer.Destroy(this.gameObject);
         }
     }
