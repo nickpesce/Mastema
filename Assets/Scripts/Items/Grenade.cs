@@ -31,9 +31,18 @@ public class Grenade : Item {
     {
         this.transform.position = position;
         Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
+        rb.isKinematic = false;
         rb.velocity = direction * 50;
         SpawnItem();
+        RpcMakeNotKinematic();
         thrown = true;
+    }
+
+    [ClientRpc]
+    private void RpcMakeNotKinematic()
+    {
+        Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
+        rb.isKinematic = false;
     }
 
     [ServerCallback]
