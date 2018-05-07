@@ -32,17 +32,25 @@ public class Item : NetworkBehaviour {
     /// <param name="id">The item type</param>
     /// <param name="user">The player that is using the item</param>
     [Server]
-    public static void UseItemFromInventory(int id, GameObject user)
+    public static void UseItemFromInventory(int id, GameObject user, Vector3 position, Vector3 direction)
     {
         Item itemPrefab = allItems[id];
         GameObject itemObject = Instantiate(itemPrefab.gameObject, user.transform.position, Quaternion.identity);
         Item item = itemObject.GetComponent<Item>();
         item.user = user;
-        item.UseItem();
+        item.UseItem(position, direction);
     }
 
     [Server]
-    public virtual void UseItem()
+    public static void SpawnOnGround(int id, Vector3 position)
+    {
+        GameObject item = Instantiate(allItems[id].gameObject, position, Quaternion.identity);
+        NetworkServer.Spawn(item);
+    }
+
+
+    [Server]
+    public virtual void UseItem(Vector3 position, Vector3 direction)
     {
         user.GetComponent<Inventory>().RemoveCurrentItem();
     }
