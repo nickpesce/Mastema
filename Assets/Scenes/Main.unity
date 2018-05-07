@@ -177,6 +177,7 @@ MonoBehaviour:
   spawnChancePerUpdate: 0.01
   items:
   - {fileID: 114380443004848062, guid: 8993465bae8814f4a90de7fc857f8a88, type: 2}
+  - {fileID: 114302454914119438, guid: f93363c4032f1d145a4569fda9ce6775, type: 2}
 --- !u!4 &509614472
 Transform:
   m_ObjectHideFlags: 0
@@ -268,6 +269,7 @@ MonoBehaviour:
   m_SpawnPrefabs:
   - {fileID: 1888128899509588, guid: e4494dc33b254cc4684a01a7fb427735, type: 2}
   - {fileID: 1416538030241466, guid: 8993465bae8814f4a90de7fc857f8a88, type: 2}
+  - {fileID: 1473077337077984, guid: f93363c4032f1d145a4569fda9ce6775, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -348,7 +350,7 @@ GameObject:
   - component: {fileID: 1065302200}
   - component: {fileID: 1065302199}
   m_Layer: 0
-  m_Name: Floor
+  m_Name: Death Barrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
