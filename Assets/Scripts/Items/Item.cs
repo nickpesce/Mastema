@@ -9,6 +9,7 @@ public class Item : NetworkBehaviour {
     /// <summary>
     /// The unique identifier for this item type. Determined by index in ItemGenerator
     /// </summary>
+    [SerializeField]
     protected int id;
 
     /// <summary>
@@ -54,6 +55,7 @@ public class Item : NetworkBehaviour {
 
     private void TryPickUp(GameObject other)
     {
+        
         if (user != null)
         {
             return;
@@ -66,6 +68,7 @@ public class Item : NetworkBehaviour {
         }
         if (inventory.AddItem(this.id))
         {
+            
             //Picked up
             NetworkServer.Destroy(this.gameObject);
         }
@@ -85,6 +88,7 @@ public class Item : NetworkBehaviour {
 
     public void SetId(int i)
     {
+        
         id = i;
     }
 }

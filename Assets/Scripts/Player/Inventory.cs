@@ -58,6 +58,7 @@ public class Inventory : NetworkBehaviour {
     /// <returns>true if added. false if inventory is full</returns>
     public bool AddItem(int item)
     {
+
         if (IsFull())
         {
             return false;
