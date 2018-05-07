@@ -79,12 +79,12 @@ public class PlayerAction : NetworkBehaviour {
     */
 
     [Command]
-    void CmdUseItem()
+    void CmdUseItem(Vector3 position, Vector3 direction)
     {
         int held = inventory.GetCurrentItem();
         if(held != -1)
         {
-            Item.UseItemFromInventory(held, this.gameObject);
+            Item.UseItemFromInventory(held, this.gameObject, position, direction);
         }
     }
 
@@ -98,7 +98,7 @@ public class PlayerAction : NetworkBehaviour {
         if (Input.GetMouseButtonDown(1))
         {
             //AoeAttack();
-            CmdUseItem();
+            CmdUseItem(playerComponents.GetHead().transform.position, playerComponents.GetHead().transform.forward);
         }
         Ray ray = new Ray(playerComponents.GetHead().transform.position, playerComponents.GetHead().transform.forward);
         RaycastHit hit;

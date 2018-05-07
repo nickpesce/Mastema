@@ -26,8 +26,7 @@ public class ItemGenerator : NetworkBehaviour {
         if (Random.value < spawnChancePerUpdate)
         {
             Vector3 spawnLocation = floorController.GetRandomPosition();
-            GameObject item = Instantiate(GetRandomItem().gameObject, spawnLocation, Quaternion.identity);
-            NetworkServer.Spawn(item);
+            Item.SpawnOnGround(Random.Range(0, items.Length), spawnLocation);
         }
     }
 

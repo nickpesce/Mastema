@@ -15,10 +15,10 @@ public class Grenade : Item {
     }
 
     [Server]
-    public override void UseItem()
+    public override void UseItem(Vector3 position, Vector3 direction)
     {
-        base.UseItem();
-        ThrowGrenade();
+        base.UseItem(position, direction);
+        ThrowGrenade(position, direction);
     }
 
     void Update()
@@ -27,13 +27,11 @@ public class Grenade : Item {
     }
 
     [Server]
-    private void ThrowGrenade()
+    private void ThrowGrenade(Vector3 position, Vector3 direction)
     {
-        PlayerComponents player = user.GetComponent<PlayerComponents>();
-        this.transform.position = player.GetHead().transform.position;
+        this.transform.position = position;
         Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
-        rb.isKinematic = false;
-        rb.AddForce(player.GetHead().transform.forward*5000);
+        rb.velocity = direction * 50;
         SpawnItem();
         thrown = true;
     }
