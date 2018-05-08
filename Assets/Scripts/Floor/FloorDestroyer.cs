@@ -29,9 +29,11 @@ public class FloorDestroyer : MonoBehaviour {
         return d;
     }
 
-    void LateUpdate () {
-        if(checkedCollision)
+    void FixedUpdate () {
+        if (checkedCollision)
+        {
             Destroy(this.gameObject);
+        }
         checkedCollision = true;
     }
 

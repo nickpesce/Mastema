@@ -48,6 +48,7 @@ public class Grenade : Item {
     [ServerCallback]
     private new void OnColliderEnter(Collision other)
     {
+        Debug.Log("Grenade collided");
         base.OnColliderEnter(other);
         if (other.gameObject != user && thrown)
         {
@@ -58,6 +59,7 @@ public class Grenade : Item {
     [ServerCallback]
     private new void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Grenade collided with trigger");
         base.OnTriggerEnter(other);
         if (other.gameObject != user && thrown)
         {
@@ -68,6 +70,7 @@ public class Grenade : Item {
     [Server]
     private void Explode()
     {
+        Debug.Log("Boom!");
         if (thrown)
         {
             thrown = false;
