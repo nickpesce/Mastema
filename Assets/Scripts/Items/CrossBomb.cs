@@ -8,6 +8,7 @@ public class CrossBomb : Item
 {
 
     public GameObject cross;
+    public GameObject floor;
     bool thrown = false;
 
     void Start()
@@ -71,7 +72,7 @@ public class CrossBomb : Item
         if (thrown)
         {
             thrown = false;
-            GameObject bomb = Instantiate(cross, new Vector3(this.transform.position.x, .5f, this.transform.position.z), Quaternion.identity);
+            GameObject bomb = Instantiate(cross, new Vector3(this.transform.position.x, 0f, this.transform.position.z), Quaternion.identity);
             NetworkServer.Destroy(this.gameObject);
         }
     }

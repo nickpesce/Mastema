@@ -58,7 +58,6 @@ public class TileController : NetworkBehaviour {
     void OnCollisionEnter(Collision collision)
     {
         CheckFloorDestroyer(collision.gameObject);
-
     }
 
     [ServerCallback]

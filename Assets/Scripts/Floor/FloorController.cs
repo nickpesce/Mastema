@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 
 public class FloorController : NetworkBehaviour
 {
+    //width is x direction, height is y direction
     public int width, height;
     public float tileSize;
     public GameObject tilePrefab;
@@ -24,19 +25,19 @@ public class FloorController : NetworkBehaviour
     [Server]
     void generateFloor()
     {
-        for (int r = 0; r < height; r++)
+        for (int y = 0; y < height; y++)
         {
-            tiles[r] = new GameObject[width];
-            for (int c = 0; c < width; c++)
+            tiles[y] = new GameObject[width];
+            for (int x = 0; x < width; x++)
             {
-                Vector3 offset = new Vector3(r * tileSize, 0, c * tileSize);
+                Vector3 offset = new Vector3(y * tileSize, 0, x * tileSize);
                 GameObject tile = Instantiate(tilePrefab, bottomLeftCorner + offset, Quaternion.identity);
                 //Scale is broken woth network spawn
                 //tile.transform.localScale *= tileSize;
                 NetworkServer.Spawn(tile);
-                tiles[r][c] = tile;
+                tiles[y][x] = tile;
                 //Spawnpoints around edges
-                if(r == 0 || c == 0 || r == height-1 || c == width-1)
+                if(y == 0 || x == 0 || y == height-1 || x == width-1)
                 {
                     //Only instatiated locally (on server)
                     Instantiate(spawnPointPrefab, bottomLeftCorner + offset, Quaternion.identity);
@@ -76,9 +77,15 @@ public class FloorController : NetworkBehaviour
     }
 
     [Server]
-    void destroyTile(Vector3 location)
+    public void DestroyTile(Vector3 location)
     {
         int[] coords = PositionToTileCoord(location);
-        tiles[coords[0]][coords[1]].SetActive(false);
+        NetworkServer.Destroy(tiles[coords[0]][coords[1]].gameObject);
+    }
+
+    [Server]
+    public void DestroyTile(int x, int y)
+    {
+        NetworkServer.Destroy(tiles[y][x].gameObject);
     }
 }
