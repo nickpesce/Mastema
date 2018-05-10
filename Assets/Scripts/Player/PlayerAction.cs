@@ -100,6 +100,13 @@ public class PlayerAction : NetworkBehaviour {
             //AoeAttack();
             CmdUseItem(playerComponents.GetHead().transform.position, playerComponents.GetHead().transform.forward);
         }
+        for(int i = 0; i < Inventory.SIZE; i++)
+        {
+            if (Input.GetKeyDown((i+1).ToString()))
+            {
+                inventory.CmdSetCurrentItemIndex(i);
+            }
+        }
         Ray ray = new Ray(playerComponents.GetHead().transform.position, playerComponents.GetHead().transform.forward);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 10))

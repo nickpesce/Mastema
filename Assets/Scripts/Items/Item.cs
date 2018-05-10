@@ -6,8 +6,12 @@ using UnityEngine.Networking;
 [RequireComponent(typeof(Collider))]
 public class Item : NetworkBehaviour {
 
+    /// Get set by 'Game' object on start
+    public static List<Item> allItems = new List<Item>();
+    public static List<Sprite> allItemSprites = new List<Sprite>();
+
     /// <summary>
-    /// The unique identifier for this item type. Determined by index in ItemGenerator
+    /// The unique identifier for this item type. Determined by index in Game
     /// </summary>
     [SerializeField]
     protected int id;
@@ -16,8 +20,6 @@ public class Item : NetworkBehaviour {
     /// The player using the item
     /// </summary>
     protected GameObject user;
-
-    public static List<Item> allItems = new List<Item>();
 
 	void Start () {
 	}
@@ -61,6 +63,7 @@ public class Item : NetworkBehaviour {
         NetworkServer.Spawn(this.gameObject);
     }
 
+    [Server]
     private void TryPickUp(GameObject other)
     {
         

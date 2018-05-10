@@ -8,16 +8,11 @@ public class ItemGenerator : NetworkBehaviour {
 
     public float spawnChancePerUpdate = .01f;
     FloorController floorController;
-    public Item[] items;
 
     void Start()
     {
         floorController = GetComponent<FloorController>();
-        for(int i = 0; i < items.Length; i++)
-        {
-            items[i].SetId(i);
-            Item.allItems.Insert(i, items[i]);
-        }
+
     }
 
     [ServerCallback]
@@ -26,18 +21,13 @@ public class ItemGenerator : NetworkBehaviour {
         if (Random.value < spawnChancePerUpdate)
         {
             Vector3 spawnLocation = floorController.GetRandomPosition();
-            Item.SpawnOnGround(Random.Range(0, items.Length), spawnLocation);
+            Item.SpawnOnGround(Random.Range(0, Item.allItems.Count), spawnLocation);
         }
     }
 
     [Server]
     Item GetRandomItem()
     {
-        return items[Random.Range(0, items.Length)];
-    }
-
-    public Item[] GetItemList()
-    {
-        return items;
+        return Item.allItems[Random.Range(0, Item.allItems.Count)];
     }
 }

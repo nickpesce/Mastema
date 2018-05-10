@@ -8,15 +8,15 @@ public class Inventory : NetworkBehaviour {
     /// Item id's that are in the inventory
     /// </summary
     private SyncListInt items = new SyncListInt();
-    public int size;
+    public const int SIZE = 5;
     [SyncVar]
-    int currentItem;
+    private int currentItem;
     [SyncVar]
     private int numItems;
 
     public override void OnStartServer()
     {
-        for(int i = 0; i < size; i++)
+        for(int i = 0; i < SIZE; i++)
         {
             items.Add(-1);
         }
@@ -28,6 +28,7 @@ public class Inventory : NetworkBehaviour {
         return items;
     }
 
+    [Server]
     public void RemoveItem(int index)
     {
         if (items[index] != -1)
@@ -46,6 +47,18 @@ public class Inventory : NetworkBehaviour {
         return items[currentItem];
     }
 
+    public int GetCurrentItemIndex()
+    {
+        return currentItem;
+    }
+
+    [Command]
+    public void CmdSetCurrentItemIndex(int i)
+    {
+        currentItem = i;
+    }
+
+    [Server]
     public void RemoveCurrentItem()
     {
         RemoveItem(currentItem);
@@ -56,6 +69,7 @@ public class Inventory : NetworkBehaviour {
     /// </summary>
     /// <param name="item">Item to add</param>
     /// <returns>true if added. false if inventory is full</returns>
+    [Server]
     public bool AddItem(int item)
     {
 
@@ -63,7 +77,7 @@ public class Inventory : NetworkBehaviour {
         {
             return false;
         }
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < SIZE; i++)
         {
             if (items[i] == -1)
             {
@@ -78,6 +92,6 @@ public class Inventory : NetworkBehaviour {
 
     public bool IsFull()
     {
-        return numItems >= size;
+        return numItems >= SIZE;
     }
 }
