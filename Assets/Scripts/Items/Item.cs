@@ -9,12 +9,14 @@ public class Item : NetworkBehaviour {
     /// Get set by 'Game' object on start
     public static List<Item> allItems = new List<Item>();
     public static List<Sprite> allItemSprites = new List<Sprite>();
-
     /// <summary>
     /// The unique identifier for this item type. Determined by index in Game
     /// </summary>
     [SerializeField]
     protected int id;
+
+    [SerializeField]
+    protected int weight;
 
     /// <summary>
     /// The player using the item
@@ -99,7 +101,18 @@ public class Item : NetworkBehaviour {
 
     public void SetId(int i)
     {
-        
+
         id = i;
+    }
+
+    public void SetWeight(int w)
+    {
+
+        weight = w;
+    }
+
+    public int GetWeight()
+    {
+        return weight;
     }
 }

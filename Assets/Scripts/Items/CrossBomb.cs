@@ -9,6 +9,7 @@ public class CrossBomb : Item
 
     public GameObject cross;
     public GameObject floor;
+    public GameObject particles;
     bool thrown = false;
 
     void Start()
@@ -73,6 +74,7 @@ public class CrossBomb : Item
         {
             thrown = false;
             GameObject bomb = Instantiate(cross, new Vector3(this.transform.position.x, 0f, this.transform.position.z), Quaternion.identity);
+            GameObject ps = Instantiate(particles, this.transform.position, Quaternion.identity);
             NetworkServer.Destroy(this.gameObject);
         }
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameSetup : MonoBehaviour {
 
     public Item[] items;
+    public int[] itemWeights;
     public Sprite[] itemSprites;
 
 	// Use this for initialization
@@ -12,6 +13,7 @@ public class GameSetup : MonoBehaviour {
         for(int i = 0; i<items.Length; i++)
         {
             items[i].SetId(i);
+            items[i].SetWeight(itemWeights[i]);
             Item.allItems.Insert(i, items[i]);
         }
         for (int i = 0; i < items.Length; i++)
