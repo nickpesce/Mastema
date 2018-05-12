@@ -248,6 +248,7 @@ MonoBehaviour:
   items:
   - {fileID: 114380443004848062, guid: 8993465bae8814f4a90de7fc857f8a88, type: 2}
   - {fileID: 114302454914119438, guid: f93363c4032f1d145a4569fda9ce6775, type: 2}
+  itemWeights: 5000000014000000
   itemSprites:
   - {fileID: 21300000, guid: 6638955d2106ec04592c8fe590ca4506, type: 3}
   - {fileID: 21300000, guid: 54297c1d27fbc7f4ca8cc74bc700959f, type: 3}
