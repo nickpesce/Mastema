@@ -247,6 +247,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   cross: {fileID: 1091205291768820, guid: 151401566da3e1f49939f04b551721a2, type: 2}
+  floor: {fileID: 0}
+  particles: {fileID: 100010, guid: 031d08f52af1daa4f929b85221519426, type: 2}
 --- !u!135 &135446011865751462
 SphereCollider:
   m_ObjectHideFlags: 1

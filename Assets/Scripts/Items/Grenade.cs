@@ -8,6 +8,7 @@ public class Grenade : Item {
 
     public float aoeRadius;
     public GameObject aoe;
+    public GameObject particles;
     bool thrown = false;
 
     void Start()
@@ -72,6 +73,7 @@ public class Grenade : Item {
         {
             thrown = false;
             GameObject bomb = Instantiate(aoe, this.transform.position, Quaternion.identity);
+            GameObject ps = Instantiate(particles, this.transform.position, Quaternion.identity);
             bomb.transform.localScale = bomb.transform.localScale * aoeRadius;
             NetworkServer.Destroy(this.gameObject);
         }

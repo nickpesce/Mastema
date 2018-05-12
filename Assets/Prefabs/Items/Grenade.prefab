@@ -177,8 +177,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f9639de725faff448588d82f142d4d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   aoeRadius: 5
   aoe: {fileID: 1259611286300800, guid: f6d3875cb16253540ab7aa294b389884, type: 2}
+  particles: {fileID: 100010, guid: 645413a00f7bd0242bbd6d0e5eb6f439, type: 2}
 --- !u!114 &114723312790490554
 MonoBehaviour:
   m_ObjectHideFlags: 1
