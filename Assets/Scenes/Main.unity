@@ -248,10 +248,14 @@ MonoBehaviour:
   items:
   - {fileID: 114380443004848062, guid: 8993465bae8814f4a90de7fc857f8a88, type: 2}
   - {fileID: 114302454914119438, guid: f93363c4032f1d145a4569fda9ce6775, type: 2}
-  itemWeights: 5000000014000000
+  - {fileID: 114139744390429820, guid: 07635d4d986171841babdac42d25950f, type: 2}
+  - {fileID: 114892423255044330, guid: dec3cc58e23473a4e9bf8cb04d9f0ce5, type: 2}
+  itemWeights: 00000000000000006400000064000000
   itemSprites:
   - {fileID: 21300000, guid: 6638955d2106ec04592c8fe590ca4506, type: 3}
   - {fileID: 21300000, guid: 54297c1d27fbc7f4ca8cc74bc700959f, type: 3}
+  - {fileID: 21300000, guid: 6638955d2106ec04592c8fe590ca4506, type: 3}
+  - {fileID: 21300000, guid: 6638955d2106ec04592c8fe590ca4506, type: 3}
 --- !u!1 &1031711989
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,6 +318,8 @@ MonoBehaviour:
   - {fileID: 1888128899509588, guid: e4494dc33b254cc4684a01a7fb427735, type: 2}
   - {fileID: 1416538030241466, guid: 8993465bae8814f4a90de7fc857f8a88, type: 2}
   - {fileID: 1473077337077984, guid: f93363c4032f1d145a4569fda9ce6775, type: 2}
+  - {fileID: 1790123945613596, guid: 07635d4d986171841babdac42d25950f, type: 2}
+  - {fileID: 1814817754995188, guid: dec3cc58e23473a4e9bf8cb04d9f0ce5, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -398,7 +404,7 @@ GameObject:
   - component: {fileID: 1065302203}
   m_Layer: 0
   m_Name: Death Barrier
-  m_TagString: Untagged
+  m_TagString: Death
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -617,7 +623,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1400635061
+  randomSeed: -1357011311
   InitialModule:
     serializedVersion: 3
     enabled: 1

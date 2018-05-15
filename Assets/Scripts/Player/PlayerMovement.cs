@@ -14,10 +14,13 @@ public class PlayerMovement : NetworkBehaviour
     public bool canJump = true;
     public float jumpHeight = 2.0f;
     private bool grounded = false;
+    private bool buffed = false;
     GameObject ground;
     private Rigidbody rb;
 
-    
+    private float originalSpeed;
+    private float originalJump;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -82,4 +85,29 @@ public class PlayerMovement : NetworkBehaviour
         // for the character to reach at the apex.
         return Mathf.Sqrt(2 * jumpHeight * gravity);
     }
+
+    public bool isBuffed()
+    {
+        return buffed;
+    }
+
+    public void changeStat(string stat, float multiplier)
+    { 
+        
+
+        if (stat == "speed")
+        {
+            speed *= multiplier;
+        }
+
+        if (stat == "jump")
+        {
+
+            jumpHeight *= multiplier;
+        }
+
+        if (multiplier > 1) buffed = true;
+        else buffed = false;
+    }
+
 }

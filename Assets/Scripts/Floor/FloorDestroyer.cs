@@ -12,6 +12,9 @@ public class FloorDestroyer : MonoBehaviour {
     private float damage;
     private Boolean checkedCollision;
 
+    public float a;
+    public float b;
+
     void Start()
     {
         damage = damagePercent / 100;
@@ -23,8 +26,13 @@ public class FloorDestroyer : MonoBehaviour {
         float d = damage;
         if(distanceBased)
         {
+
+            d = a * Mathf.Exp( -Mathf.Pow( (d - b), 2) / 2);
+
+            /*
             //TODO guassian function.
             d /= Math.Max(1, Vector3.Distance(tile.transform.position, this.transform.position));
+            */
         }
         return d;
     }

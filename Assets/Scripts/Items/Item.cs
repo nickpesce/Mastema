@@ -39,11 +39,22 @@ public class Item : NetworkBehaviour {
     public static void UseItemFromInventory(int id, GameObject user, Vector3 position, Vector3 direction)
     {
         Item itemPrefab = allItems[id];
-        GameObject itemObject = Instantiate(itemPrefab.gameObject, user.transform.position, Quaternion.identity);
+        GameObject itemObject;
+
+        Debug.Log(itemPrefab.GetType());
+        if (itemPrefab.GetType() != typeof(Potion))
+        {
+            itemObject = Instantiate(itemPrefab.gameObject, user.transform.position, Quaternion.identity);
+        }
+        else
+        {
+            itemObject = itemPrefab.gameObject;
+        }
         Item item = itemObject.GetComponent<Item>();
         item.user = user;
         item.UseItem(position, direction);
     }
+
 
     [Server]
     public static void SpawnOnGround(int id, Vector3 position)

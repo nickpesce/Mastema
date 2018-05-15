@@ -70,6 +70,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damagePercent: 100
   distanceBased: 1
+  a: 1
+  b: 0
 --- !u!135 &135941858502381200
 SphereCollider:
   m_ObjectHideFlags: 1
