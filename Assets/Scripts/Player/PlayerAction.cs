@@ -86,14 +86,7 @@ public class PlayerAction : NetworkBehaviour {
         int held = inventory.GetCurrentItem();
         if(held != -1)
         {
-            if (Item.allItems[held].GetType() == typeof(Potion) && this.gameObject.GetComponent<PlayerMovement>().isBuffed())
-            {
-                Debug.Log("already buffed");
-            }
-            else
-            {
-                Item.UseItemFromInventory(held, this.gameObject, position, direction);
-            }
+            Item.UseItemFromInventory(held, this.gameObject, position, direction);
         }
     }
 
