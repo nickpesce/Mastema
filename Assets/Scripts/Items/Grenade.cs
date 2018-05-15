@@ -4,47 +4,13 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Grenade : Item {
+public class Grenade : ThrowableItem {
 
     public float aoeRadius;
     public GameObject aoe;
     public GameObject particles;
-    bool thrown = false;
+    
 
-    void Start()
-    {
-    }
-
-    [Server]
-    public override void UseItem(Vector3 position, Vector3 direction)
-    {
-        base.UseItem(position, direction);
-        ThrowGrenade(position, direction);
-    }
-
-    void Update()
-    {
-
-    }
-
-    [Server]
-    private void ThrowGrenade(Vector3 position, Vector3 direction)
-    {
-        this.transform.position = position;
-        Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
-        rb.isKinematic = false;
-        rb.velocity = direction * 50;
-        SpawnItem();
-        RpcMakeNotKinematic();
-        thrown = true;
-    }
-
-    [ClientRpc]
-    private void RpcMakeNotKinematic()
-    {
-        Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
-        rb.isKinematic = false;
-    }
 
     [ServerCallback]
     private new void OnColliderEnter(Collision other)

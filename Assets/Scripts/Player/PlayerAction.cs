@@ -20,6 +20,8 @@ public class PlayerAction : NetworkBehaviour {
 
     private Inventory inventory;
 
+    private NetworkStartPosition spawnPoint;
+
     //On server, script is not started, but it is initialized for commands
     //Start() will not work
     void Awake() {
@@ -84,7 +86,34 @@ public class PlayerAction : NetworkBehaviour {
         int held = inventory.GetCurrentItem();
         if(held != -1)
         {
-            Item.UseItemFromInventory(held, this.gameObject, position, direction);
+            if (Item.allItems[held].GetType() == typeof(Potion) && this.gameObject.GetComponent<PlayerMovement>().isBuffed())
+            {
+                Debug.Log("already buffed");
+            }
+            else
+            {
+                Item.UseItemFromInventory(held, this.gameObject, position, direction);
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Death")
+        {
+            //collided with death barrier
+            Debug.Log("Died");
+
+            spawnPoint = FindObjectOfType<NetworkStartPosition>();
+
+            transform.position = spawnPoint.transform.position;
+            /* Options:
+             *  Spectate until game is over
+             *  Lives
+             *  Point system (would need to keep track of who kills whom
+             */
+
+            
         }
     }
 
@@ -118,5 +147,10 @@ public class PlayerAction : NetworkBehaviour {
         {
             pointer.GetComponent<Image>().color = new Color32(255, 0, 0, 255);
         }
+    }
+
+    public void setMeleeDamage(float value)
+    {
+        meleeDamage = Mathf.Clamp(value, 0, 1);
     }
 }
