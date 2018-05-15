@@ -72,7 +72,7 @@ public class CrossBomb : Item
         if (thrown)
         {
             thrown = false;
-            GameObject bomb = Instantiate(cross, new Vector3(this.transform.position.x, 0f, this.transform.position.z), Quaternion.identity);
+            Instantiate(cross, new Vector3(this.transform.position.x, 0f, this.transform.position.z), Quaternion.identity);
             NetworkServer.Destroy(this.gameObject);
         }
     }
