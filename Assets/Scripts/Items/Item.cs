@@ -41,7 +41,6 @@ public class Item : NetworkBehaviour {
         Item itemPrefab = allItems[id];
         GameObject itemObject;
 
-        Debug.Log(itemPrefab.GetType());
         if (itemPrefab.GetType() != typeof(Potion))
         {
             itemObject = Instantiate(itemPrefab.gameObject, user.transform.position, Quaternion.identity);

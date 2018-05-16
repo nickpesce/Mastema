@@ -7,19 +7,21 @@ using System.Collections;
 
 public class PlayerMovement : NetworkBehaviour
 {
-
+    [SyncVar]
     public float speed = 10.0f;
+
     public float gravity = 10.0f;
     public float maxVelocityChange = 10.0f;
     public bool canJump = true;
+
+    [SyncVar]
     public float jumpHeight = 2.0f;
+
     private bool grounded = false;
     private bool buffed = false;
     GameObject ground;
     private Rigidbody rb;
 
-    private float originalSpeed;
-    private float originalJump;
 
     void Awake()
     {

@@ -18,6 +18,8 @@ public class LocalPlayerInit : NetworkBehaviour {
             throw new System.Exception("Local player must have a Camera as a child with a camera, audio listener, and flare layer");
         }
         camera.enabled = true;
+        
+
         flare.enabled = true;
         audio.enabled = true;
         Canvas canvas = GetComponentInChildren<Canvas>(true);
@@ -28,5 +30,6 @@ public class LocalPlayerInit : NetworkBehaviour {
         canvas.gameObject.SetActive(true);
         GetComponent<MouseLook>().enabled = true;
         GetComponent<PlayerAction>().enabled = true;
+        transform.LookAt(new Vector3(0,0,0));
     }
 }
