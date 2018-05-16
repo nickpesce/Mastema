@@ -17,17 +17,17 @@ public class ItemGenerator : NetworkBehaviour {
     {
         floorController = GetComponent<FloorController>();
 
-        weights = new int[Item.allItems.Count];
+        weights = new int[Game.ITEMS.Count];
 
-        for (int i = 0; i < Item.allItems.Count; i++)
+        for (int i = 0; i < Game.ITEMS.Count; i++)
         {
-            totalWeight += Item.allItems[i].GetWeight();
+            totalWeight += Game.ITEMS[i].GetWeight();
         }
 
-        weights[0] = Item.allItems[0].GetWeight();
-        for (int i = 1; i < Item.allItems.Count; i++)
+        weights[0] = Game.ITEMS[0].GetWeight();
+        for (int i = 1; i < Game.ITEMS.Count; i++)
         {
-            weights[i] = weights[i - 1] + Item.allItems[i].GetWeight();
+            weights[i] = weights[i - 1] + Game.ITEMS[i].GetWeight();
         }
     }
 
@@ -57,6 +57,6 @@ public class ItemGenerator : NetworkBehaviour {
     [Server]
     Item GetRandomItem()
     {
-        return Item.allItems[Random.Range(0, Item.allItems.Count)];
+        return Game.ITEMS[Random.Range(0, Game.ITEMS.Count)];
     }
 }

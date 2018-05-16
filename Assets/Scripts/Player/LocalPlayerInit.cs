@@ -9,7 +9,6 @@ using UnityEngine;
 public class LocalPlayerInit : NetworkBehaviour {
     public override void OnStartLocalPlayer()
     {
-
         AudioListener audio = GetComponentInChildren<AudioListener>();
         FlareLayer flare = GetComponentInChildren<FlareLayer>();
         Camera camera = GetComponentInChildren<Camera>();

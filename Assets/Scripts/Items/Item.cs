@@ -6,9 +6,6 @@ using UnityEngine.Networking;
 [RequireComponent(typeof(Collider))]
 public class Item : NetworkBehaviour {
 
-    /// Get set by 'Game' object on start
-    public static List<Item> allItems = new List<Item>();
-    public static List<Sprite> allItemSprites = new List<Sprite>();
     /// <summary>
     /// The unique identifier for this item type. Determined by index in Game
     /// </summary>
@@ -38,7 +35,7 @@ public class Item : NetworkBehaviour {
     [Server]
     public static void UseItemFromInventory(int id, GameObject user, Vector3 position, Vector3 direction)
     {
-        Item itemPrefab = allItems[id];
+        Item itemPrefab = Game.ITEMS[id];
         GameObject itemObject;
 
         if (itemPrefab.GetType() != typeof(Potion))
@@ -58,7 +55,7 @@ public class Item : NetworkBehaviour {
     [Server]
     public static void SpawnOnGround(int id, Vector3 position)
     {
-        GameObject item = Instantiate(allItems[id].gameObject, position, Quaternion.identity);
+        GameObject item = Instantiate(Game.ITEMS[id].gameObject, position, Quaternion.identity);
         NetworkServer.Spawn(item);
     }
 
