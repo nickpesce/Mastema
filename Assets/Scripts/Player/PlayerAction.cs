@@ -22,6 +22,7 @@ public class PlayerAction : NetworkBehaviour {
 
     private NetworkStartPosition spawnPoint;
 
+
     //On server, script is not started, but it is initialized for commands
     //Start() will not work
     void Awake() {
@@ -121,6 +122,7 @@ public class PlayerAction : NetworkBehaviour {
         {
             //AoeAttack();
             CmdUseItem(playerComponents.GetHead().transform.position, playerComponents.GetHead().transform.forward);
+
         }
         for(int i = 0; i < Inventory.SIZE; i++)
         {
