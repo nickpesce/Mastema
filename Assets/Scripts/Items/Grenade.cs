@@ -39,9 +39,11 @@ public class Grenade : ThrowableItem {
         {
             thrown = false;
             GameObject bomb = Instantiate(aoe, this.transform.position, Quaternion.identity);
-            Instantiate(particles, this.transform.position, Quaternion.identity);
+            GameObject ps = Instantiate(particles, this.transform.position, Quaternion.identity);
             bomb.transform.localScale = bomb.transform.localScale * aoeRadius;
+            NetworkServer.Spawn(ps);
             NetworkServer.Destroy(this.gameObject);
+            
         }
     }
 }

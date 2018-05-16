@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayerComponents))]
 [RequireComponent(typeof(Inventory))]
+
 public class PlayerAction : NetworkBehaviour {
 
     private PlayerComponents playerComponents;
@@ -52,35 +54,6 @@ public class PlayerAction : NetworkBehaviour {
         tile.GetComponent<TileController>().DoDamage(meleeDamage);
     }
 
-    /*
-    void AoeAttack()
-    {
-        if (Time.time < nextAOE) return;
-        Ray ray = new Ray(head.transform.position, head.transform.forward);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 10))
-        {
-            GameObject hitObject = hit.collider.gameObject;
-            if (hitObject.CompareTag("Floor"))
-            {
-                CmdAoeAttack(hitObject);
-            }
-        }
-    }
-
-    
-    [Command]
-    void CmdAoeAttack(GameObject tile)
-    {
-        if (Time.time < nextAOE) return;
-        Vector3 pos = gameObject.transform.position;
-        //GameObject bomb = Instantiate(aoe, new Vector3(pos.x, pos.y + gameObject.transform.localScale.y, pos.z), Quaternion.identity);
-        GameObject bomb = Instantiate(aoe, tile.transform.position, Quaternion.identity);
-        bomb.transform.localScale = bomb.transform.localScale * aoeRadius;
-        nextAOE = Time.time + aoeCD;
-    }
-    */
-
     [Command]
     void CmdUseItem(Vector3 position, Vector3 direction)
     {
@@ -91,16 +64,21 @@ public class PlayerAction : NetworkBehaviour {
         }
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Death")
         {
             //collided with death barrier
-            Debug.Log("Died");
 
-            spawnPoint = FindObjectOfType<NetworkStartPosition>();
+            if (!isServer && isClient) NetworkManager.singleton.StopClient();
+            if (isServer)
+            {
+                spawnPoint = FindObjectOfType<NetworkStartPosition>();
 
-            transform.position = spawnPoint.transform.position;
+                transform.position = spawnPoint.transform.position;
+                this.gameObject.transform.LookAt(new Vector3(0, 0, 0));
+            }
             /* Options:
              *  Spectate until game is over
              *  Lives

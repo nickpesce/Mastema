@@ -10,21 +10,22 @@ public class PlayerAnimator : MonoBehaviour {
 
     float baseSpeed;
 
-    public GameObject player;
     private PlayerAction action;
+    private Rigidbody rb;
 
     // Use this for initialization
     void Start()
     { 
         animator = GetComponentInChildren<Animator>();
-        baseSpeed = player.GetComponent<PlayerMovement>().speed;
-        action = player.GetComponent<PlayerAction>();
+        baseSpeed = this.gameObject.GetComponent<PlayerMovement>().speed;
+        action = this.gameObject.GetComponent<PlayerAction>();
+        rb = this.gameObject.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 vel = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Vector3 vel = rb.velocity;
         float speedPercent = vel.magnitude / baseSpeed;
         animator.SetFloat("speedPercent", speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);
 
