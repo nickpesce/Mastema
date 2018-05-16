@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameSetup : MonoBehaviour {
+public class Game : MonoBehaviour {
 
+    //Inputs
     public Item[] items;
     public int[] itemWeights;
     public Sprite[] itemSprites;
+
+    //Statics
+    public static List<Item> ITEMS = new List<Item>();
+    public static List<Sprite> ITEM_SPRITES = new List<Sprite>();
+    public static string PLAYER_NAME = "Steve";
 
 	// Use this for initialization
 	void Start () {
@@ -14,12 +20,13 @@ public class GameSetup : MonoBehaviour {
         {
             items[i].SetId(i);
             items[i].SetWeight(itemWeights[i]);
-            Item.allItems.Insert(i, items[i]);
-        }
+            ITEMS.Insert(i, items[i]);
+
+}
         for (int i = 0; i < items.Length; i++)
         {
-
-            Item.allItemSprites.Insert(i, itemSprites[i]);
+            ITEM_SPRITES.Insert(i, itemSprites[i]);
+            Game.ITEM_SPRITES.Insert(i, itemSprites[i]);
         }
     }
 	

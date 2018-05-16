@@ -22,6 +22,7 @@ public class JoinButtons : MonoBehaviour {
 
     public void Join()
     {
+        Game.PLAYER_NAME = nameInput.GetComponent<Text>().text;
         string ip = IPInput.GetComponent<Text>().text;
         NetworkManager.singleton.networkAddress = ip;
         int port = 7777;

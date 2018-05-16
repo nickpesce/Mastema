@@ -38,11 +38,13 @@ public class EffectManager : NetworkBehaviour {
             effects[type].timer = time;
             effects[type].totalTime = time;
             effects[type].multiplier = multiplier;
+            RpcUpdateEffectTime(type, time);
         }
         else
         {
             Effect e = new Effect(type, multiplier, time);
             effects[type] = e;
+            RpcAddEffect(type, multiplier, time);
             switch (type)
             {
                 case EffectType.SPEED:
@@ -53,12 +55,29 @@ public class EffectManager : NetworkBehaviour {
                     break;
             }
         }
+    } 
+    [ClientRpc]
+    public void RpcAddEffect(EffectType type, float multiplier, float time)
+    {
+        Effect e = new Effect(type, multiplier, time);
+        effects[type] = e;
+    }
+
+    [ClientRpc]
+    public void RpcUpdateEffectTime(EffectType type, float time)
+    {
+        if (effects.ContainsKey(type))
+        {
+            effects[type].totalTime = time;
+            effects[type].timer = time;
+        }
     }
 
     [Server]
     public void RemoveEffect(Effect effect)
     {
         effects.Remove(effect.type);
+        RpcRemoveEffect(effect.type);
         switch (effect.type)
         {
             case EffectType.SPEED:
@@ -70,14 +89,20 @@ public class EffectManager : NetworkBehaviour {
         }
     }
 
-    [ServerCallback]
+    [ClientRpc]
+    public void RpcRemoveEffect(EffectType type)
+    {
+        effects.Remove(type);
+    }
+
 	void FixedUpdate () {
         foreach (EffectType key in effects.Keys.ToList())
         {
             effects[key].timer -= Time.fixedDeltaTime;
             if(effects[key].timer <= 0)
             {
-                RemoveEffect(effects[key]);
+                if(isServer)
+                    RemoveEffect(effects[key]);
             }
         }
     }

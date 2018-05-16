@@ -21,6 +21,7 @@ public class HostButtons : MonoBehaviour {
 
     public void HostGame()
     {
+        Game.PLAYER_NAME = nameInput.GetComponent<Text>().text;
         int port = 7777;
         Int32.TryParse(portInput.GetComponent<Text>().text, out port);
         NetworkManager.singleton.networkPort = port;

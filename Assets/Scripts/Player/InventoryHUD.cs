@@ -35,7 +35,7 @@ public class InventoryHUD : MonoBehaviour {
             else
             {
                 slots[i].itemImage.enabled = true;
-                slots[i].itemImage.sprite = Item.allItemSprites[items[i]];
+                slots[i].itemImage.sprite = Game.ITEM_SPRITES[items[i]];
             }
             if(inventory.GetCurrentItemIndex() == i)
             {
