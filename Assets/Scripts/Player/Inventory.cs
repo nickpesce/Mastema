@@ -14,6 +14,7 @@ public class Inventory : NetworkBehaviour {
     [SyncVar]
     private int numItems;
 
+    [ServerCallback]
     public override void OnStartServer()
     {
         for(int i = 0; i < SIZE; i++)

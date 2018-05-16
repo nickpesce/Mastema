@@ -165,9 +165,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   weight: 100
-  stat: speed
+  stat: 0
   multiplier: 1.7
-  timer: 5
+  time: 10
   staminaImg: {fileID: 1610497019966960, guid: 293f5d67b1503ca4882fb56c67750758, type: 2}
 --- !u!114 &114678459552821618
 MonoBehaviour:

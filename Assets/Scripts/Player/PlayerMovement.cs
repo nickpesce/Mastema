@@ -18,7 +18,6 @@ public class PlayerMovement : NetworkBehaviour
     public float jumpHeight = 2.0f;
 
     private bool grounded = false;
-    private bool buffed = false;
     GameObject ground;
     private Rigidbody rb;
 
@@ -86,30 +85,6 @@ public class PlayerMovement : NetworkBehaviour
         // From the jump height and gravity we deduce the upwards speed 
         // for the character to reach at the apex.
         return Mathf.Sqrt(2 * jumpHeight * gravity);
-    }
-
-    public bool isBuffed()
-    {
-        return buffed;
-    }
-
-    public void changeStat(string stat, float multiplier)
-    { 
-        
-
-        if (stat == "speed")
-        {
-            speed *= multiplier;
-        }
-
-        if (stat == "jump")
-        {
-
-            jumpHeight *= multiplier;
-        }
-
-        if (multiplier > 1) buffed = true;
-        else buffed = false;
     }
 
 }

@@ -5,50 +5,22 @@ using UnityEngine.Networking;
 
 public class Potion : Item {
 
-    public string stat;
+    public EffectManager.EffectType stat;
     public float multiplier;
-
-    [SyncVar]
-    public float timer;
-
-    private bool drank = false;
-
+    public int time;
 
     [Server]
     public override void UseItem(Vector3 position, Vector3 direction)
     {
         base.UseItem(position, direction);
-        drinkPotion();
+        DrinkPotion();
     }
 
-    [ServerCallback]
-    private void Update()
-    {
-        if (drank)
-        {
-            timer -= Time.deltaTime;
-            if (timer <= 0)
-            {
-                undrinkPotion();
-                drank = false;
-            }
-        }
-    }
-
-    private void drinkPotion()
+    [Server]
+    private void DrinkPotion()
     {
         //play animation
         //increase by <multiplayer> for <stat> of <user> for <timer> seconds
-
-        drank = true;
-        this.user.GetComponent<PlayerMovement>().changeStat(stat, multiplier);
-    }
-
-    private void undrinkPotion()
-    {
-        //play animation
-        //increase by <multiplayer> for <stat> of <user> for <timer> seconds
-
-        this.user.GetComponent<PlayerMovement>().changeStat(stat, 1/multiplier);
+        user.GetComponent<EffectManager>().AddEffect(stat, multiplier, time);
     }
 }

@@ -197,9 +197,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 3
   weight: 100
-  stat: jump
+  stat: 1
   multiplier: 2
-  timer: 10
+  time: 20
   staminaImg: {fileID: 1610497019966960, guid: 293f5d67b1503ca4882fb56c67750758, type: 2}
 --- !u!135 &135216063984732296
 SphereCollider:
