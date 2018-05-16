@@ -165,9 +165,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   weight: 100
-  stat: speed
+  stat: 0
   multiplier: 1.7
-  timer: 5
+  time: 10
 --- !u!114 &114678459552821618
 MonoBehaviour:
   m_ObjectHideFlags: 1

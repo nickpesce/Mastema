@@ -12,11 +12,13 @@ public class EffectManager : NetworkBehaviour {
         public EffectType type;
         public float multiplier;
         public float timer;
+        public float totalTime;
         public Effect(EffectType type, float multiplier, float time)
         {
             this.type = type;
             this.multiplier = multiplier;
             this.timer = time;
+            this.totalTime = time;
         }
     }
     PlayerMovement movement;
@@ -31,16 +33,25 @@ public class EffectManager : NetworkBehaviour {
     [Server]
     public void AddEffect(EffectType type, float multiplier, float time)
     {
-        Effect e = new Effect(type, multiplier, time);
-        effects[type] = e;
-        switch (type)
+        if (effects.ContainsKey(type))
         {
-            case EffectType.SPEED:
-                movement.speed *= multiplier;
-                break;
-            case EffectType.JUMP:
-                movement.jumpHeight *= multiplier;
-                break;
+            effects[type].timer = time;
+            effects[type].totalTime = time;
+            effects[type].multiplier = multiplier;
+        }
+        else
+        {
+            Effect e = new Effect(type, multiplier, time);
+            effects[type] = e;
+            switch (type)
+            {
+                case EffectType.SPEED:
+                    movement.speed *= multiplier;
+                    break;
+                case EffectType.JUMP:
+                    movement.jumpHeight *= multiplier;
+                    break;
+            }
         }
     }
 
@@ -69,5 +80,10 @@ public class EffectManager : NetworkBehaviour {
                 RemoveEffect(effects[key]);
             }
         }
+    }
+
+    public Dictionary<EffectType, Effect> GetEffects()
+    {
+        return effects;
     }
 }

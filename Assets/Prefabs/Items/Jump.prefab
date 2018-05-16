@@ -197,9 +197,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 3
   weight: 100
-  stat: jump
+  stat: 1
   multiplier: 2
-  timer: 10
+  time: 20
 --- !u!135 &135216063984732296
 SphereCollider:
   m_ObjectHideFlags: 1
