@@ -885,6 +885,7 @@ GameObject:
   - component: {fileID: 4052628479765286}
   - component: {fileID: 23018520898158816}
   - component: {fileID: 102724478047495336}
+  - component: {fileID: 114437549459996496}
   m_Layer: 0
   m_Name: Tag
   m_TagString: Untagged
@@ -2805,6 +2806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b714db12508efb44382ccbd5f79cc3c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameTag: {fileID: 102724478047495336}
 --- !u!114 &114290958502712036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2935,6 +2937,17 @@ MonoBehaviour:
   aoe: {fileID: 1259611286300800, guid: f6d3875cb16253540ab7aa294b389884, type: 2}
   aoeRadius: 10
   aoeCD: 5
+--- !u!114 &114437549459996496
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1521840134126458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb26f1e835642a6479592f90294fbef0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114462813629779882
 MonoBehaviour:
   m_ObjectHideFlags: 1
