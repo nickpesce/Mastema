@@ -32,6 +32,7 @@ public class Item : NetworkBehaviour {
 
     /// <summary>
     /// Uses an "item" that does not currently exist.
+    /// Returns whether the item was thrown or a potion (for animations)
     /// </summary>
     /// <param name="id">The item type</param>
     /// <param name="user">The player that is using the item</param>
