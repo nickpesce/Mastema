@@ -20,9 +20,9 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
-  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
-  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientSkyColor: {r: 0.15862083, g: 0, b: 1, a: 1}
+  m_AmbientEquatorColor: {r: 0, g: 0.055340514, b: 0.09558821, a: 1}
+  m_AmbientGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
@@ -43,7 +43,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -89,7 +89,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: b2ff63eb1c16ea24f80fec1e7ff22a0a,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -280,7 +281,7 @@ MonoBehaviour:
   - {fileID: 114302454914119438, guid: f93363c4032f1d145a4569fda9ce6775, type: 2}
   - {fileID: 114139744390429820, guid: 07635d4d986171841babdac42d25950f, type: 2}
   - {fileID: 114892423255044330, guid: dec3cc58e23473a4e9bf8cb04d9f0ce5, type: 2}
-  itemWeights: 64000000000000000000000064000000
+  itemWeights: 00000000000000006400000000000000
   itemSprites:
   - {fileID: 21300000, guid: 6638955d2106ec04592c8fe590ca4506, type: 3}
   - {fileID: 21300000, guid: 54297c1d27fbc7f4ca8cc74bc700959f, type: 3}
@@ -521,7 +522,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -547177898
+  randomSeed: 120321832
   InitialModule:
     serializedVersion: 3
     enabled: 1
